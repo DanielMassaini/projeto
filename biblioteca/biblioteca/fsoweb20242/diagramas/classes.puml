@@ -1,0 +1,36 @@
+@startuml
+
+class Cliente {
+    - id: Int
+    - nome: String
+    - email: String
+    + getId(): Int
+    + getNome(): String
+    + getEmail(): String
+}
+
+class ClienteRepository {
+    + findById(id: Int): Cliente
+    + save(cliente: Cliente): void
+    + delete(id: Int): void
+}
+
+class ClienteService {
+    - clienteRepository: ClienteRepository
+    + adicionarCliente(cliente: Cliente): void
+    + removerCliente(id: Int): void
+    + obterCliente(id: Int): Cliente
+}
+
+class ClienteController {
+    - clienteService: ClienteService
+    + criarCliente(cliente: Cliente): void
+    + deletarCliente(id: Int): void
+    + mostrarCliente(id: Int): Cliente
+}
+
+ClienteController --> ClienteService
+ClienteService --> ClienteRepository
+ClienteRepository --> Cliente
+
+@enduml
